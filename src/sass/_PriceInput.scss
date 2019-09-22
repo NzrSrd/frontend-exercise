@@ -2,4 +2,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  input {
+    display: flex;
+    width: 100%;
+    max-width: 300px;
+    padding: 12px 12px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    font-size: 1rem;
+  }
 }

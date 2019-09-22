@@ -29,7 +29,7 @@ class PriceInput extends Component {
                         max="10000000"
                         id="price-from"
                         name="priceFrom"
-                        placeholder="£1,000,000"
+                        placeholder="€10"
                         value={priceFrom}
                         onChange={ e => this.handleChange(e)}
                     />
@@ -42,16 +42,11 @@ class PriceInput extends Component {
                         max="10000000"
                         id="price-to"
                         name="priceTo"
-                        placeholder="£1,000,000"
+                        placeholder="€1,000,000"
                         value={priceTo}
                         onChange={e => this.handleChange(e)}
                     />
                 </form>
-                {priceFrom && (
-                    <p className='price-container'>
-                        The price from is; {priceFrom}. The price to is; {priceTo}
-                    </p>
-                )}
             </div>
         )
     }
