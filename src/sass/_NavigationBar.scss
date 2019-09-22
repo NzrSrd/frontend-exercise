@@ -1,0 +1,16 @@
+.nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 10vh;
+  border-bottom: lightslategray 1px solid;
+
+}
+
+.nav h2 {
+  background-color: gold;
+  padding: 1rem;
+  border-radius: 4px;
+  //text-transform: uppercase;
+  font-family: "Courier New", serif;
+}

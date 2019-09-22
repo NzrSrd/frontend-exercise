@@ -1,0 +1,23 @@
+@import "NavigationBar";
+@import "SearchField";
+@import "ProductList";
+
+$bg-color: #eaebec;
+
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  -ms-border-radius: $radius;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: 0;
+}
+
+body {
+  background: $bg-color;
+  font-family: "Open Sans", sans-serif;
+}
+
