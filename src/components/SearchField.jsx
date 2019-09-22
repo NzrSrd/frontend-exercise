@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 // import ProductList from "./ProductList";
 import axios from 'axios';
 import ProductList from "./ProductList";
+import PriceInput from "./PriceInput";
 
 
 class SearchField extends Component {
@@ -9,6 +10,7 @@ class SearchField extends Component {
         super(props);
         this.state = {
             searchItem: '',
+            price: React.createRef(),
         }
     }
 
@@ -59,8 +61,11 @@ class SearchField extends Component {
                         </button>
                     </form>
                 </div>
+
+
                 {/* // pass the data to ProductList component */}
-                <ProductList/>
+                <PriceInput/>
+                <ProductList />
             </div>
         )
     }
