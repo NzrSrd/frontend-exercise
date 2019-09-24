@@ -5,7 +5,7 @@ class ProductList extends React.Component {
         super(props);
         this.state ={
             priceFrom: 0,
-            priceTo: 0
+            priceTo: 100000
         }
     }
 
@@ -55,9 +55,31 @@ class ProductList extends React.Component {
 
         const product = () => {
             if(this.props.data !== null) {
+                // eslint-disable-next-line array-callback-return
                 return this.props.data.map( (item, i) => {
-                    if (this.state.priceFrom <= parseFloat(item.sellingStatus[0].currentPrice[0].__value__)) {
-                        const price = item.sellingStatus[0].currentPrice[0].__value__;
+
+                    const price = item.sellingStatus[0].currentPrice[0].__value__;
+
+                    if (!this.state.priceFrom || !this.state.priceTo ) {
+                        return (
+                            <div key={i} className="wrap-space">
+                                <div className="product-card">
+                                    <div className="product-front">
+                                        <div className="shadow"/>
+                                        <img src={item.imageURL} alt=""/>
+                                        <div className="stats">
+                                            <div className="stats-container">
+                                                <span className="product_price">{price}</span>
+                                                <span className="product_name">{item.title}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        )
+                    }
+                    if (this.state.priceFrom <= parseFloat(price) &&
+                        this.state.priceTo >= parseFloat(price) ){
                         console.log(price, item.title);
                         return(
                             <div key={i} className="wrap-space">
@@ -79,7 +101,7 @@ class ProductList extends React.Component {
                 });
             }
         };
-        
+
         return(
             <div>
                 <div>{priceInput()}</div>
