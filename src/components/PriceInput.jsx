@@ -4,8 +4,8 @@ class PriceInput extends Component {
     constructor(props) {
         super(props);
         this.state ={
-            priceFrom: '',
-            priceTo: ''
+            priceFrom: 0,
+            priceTo: 0
         }
     }
 
@@ -13,6 +13,7 @@ class PriceInput extends Component {
         this.setState({
             [e.target.name] : e.target.value
         })
+        console.log(this.state)
     };
 
     render() {

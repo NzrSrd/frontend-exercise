@@ -1,60 +1,65 @@
 import React, { Component } from 'react';
-// import ProductList from "./ProductList";
 import axios from 'axios';
 import ProductList from "./ProductList";
-import PriceInput from "./PriceInput";
+
 
 
 class SearchField extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            searchItem: '',
-            price: React.createRef(),
-        }
+            searchQuery: '',
+            productData: null,
+        };
+
     }
 
-    updateSearch(event) {
-        event.preventDefault();
+    updateInput(e) {
+        e.preventDefault();
         this.setState({
-            searchItem: event.target.value
+            [e.target.name] : e.target.value
         })
+        console.log(this.priceFrom)
     }
 
     handleSubmit(event) {
         event.preventDefault();
-        const data = this.state.searchItem;
-        //Axios Call
+        const data = this.state.searchQuery;
         const key = 'WandoInt-217b-42d8-a699-e79808dd505e';
-        const url = `https://svcs.sandbox.ebay.com/services/search/FindingService/v1?OPERATION-NAME=findItemsByKeywords&SERVICE-VERSION=1.0.0&SECURITY-APPNAME=${key}&keywords=${data}&RESPONSE-DATA-FORMAT=JSON`;
+        const url = `https://cors-anywhere.herokuapp.com/https://svcs.sandbox.ebay.com/services/search/FindingService/v1?OPERATION-NAME=findItemsByKeywords&SERVICE-VERSION=1.0.0&SECURITY-APPNAME=${key}&keywords=${data}&RESPONSE-DATA-FORMAT=JSON`;
 
-        axios(url, {method: 'GET',
-            mode: 'no-cors',
+        axios(url, {
             headers: {
-                'Access-Control-Allow-Origin': '*',
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-            withCredentials: true,
-            credentials: 'same-origin',
-            crossdomain: true,
+                withCredentials: true
+            }
         })
-            .then(res => console.log(res.data))
-            .catch(error => console.log(error))
+            .then(res => {
+                this.setState({
+                    productData: res.data.findItemsByKeywordsResponse[0].searchResult[0].item,
+                });
+                console.log(this.state);
+
+            })
+            .catch(error => console.log(error));
+
+        document.getElementById('input-form').reset();
 
     }
 
     render() {
+
         return(
             <div>
                 <div className="search-container">
                     <form onSubmit={e => this.handleSubmit(e)}
+                          id='input-form'
                           className="search">
                         <input type="text" className="search-input"
-                               onChange={e => this.updateSearch(e)}
-                               name='search'
+                               onChange={e => this.updateInput(e)}
+                               name='searchQuery'
                                placeholder="What are you looking for?"
                         />
+
                         <button type="submit"
                                 className="searchButton">
                             Search
@@ -62,10 +67,8 @@ class SearchField extends Component {
                     </form>
                 </div>
 
+                <ProductList data={this.state.productData}/>
 
-                {/* // pass the data to ProductList component */}
-                <PriceInput/>
-                <ProductList />
             </div>
         )
     }
